@@ -1,6 +1,10 @@
 /* global Product, Cart */
 
 'use strict';
+let form= document.getElementById('catalog')
+
+let item= form.elements['item']
+let quantity= form.elements['quantity']
 
 // Set up an empty cart for use on this page.
 state.cart = new Cart([]);
@@ -12,6 +16,15 @@ function populateForm() {
   //TODO: Add an <option> tag inside the form's select for each product
   const selectElement = document.getElementById('items');
   for (let i in state.allProducts) {
+    //create an element
+    const option = document.createElement('option');
+    // console.log('options? ' ,option);
+    //once we have the element we need to update the ??? textContent
+    option.value = state.allProducts[i].name;
+    option.textContent = state.allProducts[i].name;
+console.log(option);
+    //then how do we get it back to the page?? we need to append
+    selectElement.appendChild(option);
 
   }
 
@@ -23,9 +36,11 @@ function populateForm() {
 function handleSubmit(event) {
 
   // TODO: Prevent the page from reloading
+  event.preventDefault();
 
   // Do all the things ...
   addSelectedItemToCart();
+
   state.cart.saveToLocalStorage();
   updateCounter();
   updateCartPreview();
@@ -35,8 +50,16 @@ function handleSubmit(event) {
 // TODO: Add the selected item and quantity to the cart
 function addSelectedItemToCart() {
   // TODO: suss out the item picked from the select list
+  // console.log(quantity.value);
+  // console.log(event.target.items.value);
   // TODO: get the quantity
-  // TODO: using those, add one item to the Cart
+  let items=event.target.items.value;
+  let quantity=event.target.quantity.value;
+  console.log(items);
+  state.cart.addItem(items,quantity);
+  console.log(state.cart);
+
+  // TODO: using tho;se, add one item to the Cart
 }
 
 // TODO: Update the cart count in the header nav with the number of items in the Cart
@@ -45,9 +68,10 @@ function updateCounter() { }
 // TODO: As you add items into the cart, show them (item & quantity) in the cart preview div
 function updateCartPreview() {
   // TODO: Get the item and quantity from the form
+
   // TODO: Add a new element to the cartContents div with that information
 }
-
+// updateCartPreview.addEventListener(CartItem);
 // Set up the "submit" event listener on the form.
 // This is the trigger for the app. When a user "submits" the form, it will
 // Call that handleSubmit method above and kick off the whole process
