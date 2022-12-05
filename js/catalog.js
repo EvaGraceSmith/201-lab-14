@@ -109,3 +109,20 @@ catalogForm.addEventListener('submit', handleSubmit);
 // Before anything else of value can happen, we need to fill in the select
 // drop down list in the form.
 populateForm();
+
+// Going rouge and adding the photos included cuz...why not?!
+function addPhotos(){
+  const photoFrame = document.getElementsByClassName('copy')[0];
+
+ for (let i=0; i <state.allProducts.length; i++){
+  const makePhoto = document.createElement('img');
+makePhoto.src=state.allProducts[i].filePath;
+makePhoto.alt=state.allProducts[i].name;
+
+
+
+ photoFrame.appendChild(makePhoto);
+ }
+
+}
+addPhotos();
