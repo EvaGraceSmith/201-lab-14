@@ -34,16 +34,16 @@ const tbody=document.querySelector('tbody');
 
 
   // TODO: Iterate over the items in the cart
-  for (let i=0; i< cart.items.length; i++){
+  for (let i=0; i < state.cart.items.length; i++){
   // TODO: Create a TR
   let tr = document.createElement("tr");
   // TODO: Create a TD for the delete link, quantity,  and the item
   let htmlProduct = document.createElement("td");
- htmlProduct.innerText = cart.items[i].product;
+ htmlProduct.innerText = state.cart.items[i].product;
  let htmlQuantity = document.createElement("td");
- htmlQuantity.innerText = cart.items[i].quantity;
+ htmlQuantity.innerText = state.cart.items[i].quantity;
  let htmlDelete=document.createElement("td");
- htmlDelete.innerHTML = `<a href = "" id="htmlDelete-${i + 1}">X</a>`;
+ htmlDelete.innerHTML = `<a href = "" id="del-${i + 1}">X</a>`;
   // TODO: Add the TR to the TBODY and each of the TD's to the TR
   tr.appendChild(htmlDelete);
   tr.appendChild(htmlQuantity);
@@ -56,11 +56,15 @@ function removeItemFromCart(event) {
 event.preventDefault();
   // TODO: When a delete link is clicked, use cart.removeItem to remove the correct item
   const idx = parseInt(event.target.id.split('-')[1]);
+  console.log(idx);
+  console.log(event.target.id);
+
   const row = document.querySelectorAll('tr')[idx];
-  const productName = row.innerText.split('\t')[2];
+  console.log(row.innerHTML);
+  const productName = row.textContent.split('\t')[2];
   row.innerHTML = '';
   // TODO: Save the cart back to local storage
-  cart.removeItem(productName)
+  state.cart.removeItem(productName);
   // TODO: Re-draw the cart table
 
 }
